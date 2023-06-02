@@ -42,4 +42,8 @@ Se enfrentar erros você pode listar o que está instalado no ambiente virtual u
 
 Comando para rodar o servidor do DJANGO
 
-```manage.py runserver``` 
+```.\manage.py runserver``` 
+
+Comando para instalar o Pillow
+
+``` python -m pip install Pillow```
