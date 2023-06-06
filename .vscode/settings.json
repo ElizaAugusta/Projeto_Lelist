@@ -1,0 +1,10 @@
+{
+    // these settings are 'false' by default, so removing those should also work
+    "python.testing.unittestEnabled": false, 
+    "python.testing.nosetestsEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "pythonTestExplorer.testFramework": "pytest",
+    "python.testing.pytestArgs": [
+        "usuario"
+    ] // (or unittest)
+}
