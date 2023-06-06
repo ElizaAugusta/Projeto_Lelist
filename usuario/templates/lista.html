@@ -1,19 +1,96 @@
-<l>Lista de produtos!!!</l>
-<a href="{% url 'home'%}">home </a> </l>
-
-
-<div class="container">
-    <div class="row">
-        {% for p in produto %}
-            <div class="col-sm-4">
-                <div class="polaroid">
-                    <img src="{{p.foto.url}}" style="width:20%">
-                    <div class="container">
-                        <p> {{p.nome}} {{p.quantidade}} </p>
-                        <p> {{p.data_validade}} </p>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
-</div>
+<head>
+       <style>
+           body {
+               font-family: Arial, helvetica, sans-serif;
+               background-color:#caf4ff;
+               margin: 0;
+               padding: 0;
+           }
+           
+           #menu {
+               background-color: #059FEC;
+               position: fixed;
+               top: 0;
+               left: 0;
+               width: 100%;
+           }
+           
+           #menu ul {
+               list-style-type: none;
+               margin: 0;
+               padding: 0;
+               overflow: hidden;
+               display: flex;
+               justify-content: space-around;
+           }
+           
+           #menu li {
+               position: relative;
+               width: 100%;
+           }
+           
+           #menu li a {
+               display: block;
+               color: black;
+               font-style: normal;
+               font-size: 16px;
+               text-align: center;
+               text-decoration: none;
+               padding: 16px;
+               border: 1px solid black;
+           }
+   
+           .logo {
+               color: #6BDCFF;
+           }
+           
+           #menu li a:hover {
+               background-color: white;
+           }
+       </style>
+   </head>
+   <body>
+       
+       <a href="{% url 'home'%}">home </a> 
+       <div id="menu">
+           <ul>
+               <li id="logo">
+                   <a>L</a>
+               </li>
+               <li>
+                   <a href="{% url 'home'%}">LELIST</a>
+               </li>
+               <li>
+                   <a href="{% url 'produto'%}">Produtos</a>
+               </li>
+               <li>
+                   <a href="{% url 'lista'%}">Consulta</a>
+               </li>
+               <li>
+                   <a>Dúvida</a>
+               </li>
+               <li>
+                   <a>Usuário</a>
+               </li>
+               <li>
+                   <a href="/logout/">Sair</a>
+               </li>
+           </ul>
+       </div>
+       <div class="container">
+            <h1>Lista de Produtos</h1>
+           <div class="row">
+               {% for p in produto %}
+                   <div class="col-sm-4">
+                       <div class="polaroid">
+                           <img src="{{p.foto.url}}" style="width:20%">
+                           <div class="container">
+                               <p> {{p.nome}} {{p.quantidade}} </p>
+                               <p> {{p.data_validade}} </p>
+                           </div>
+                       </div>
+                   </div>
+               {% endfor %}
+           </div>
+       </div>
+   </body>
