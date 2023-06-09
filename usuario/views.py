@@ -31,7 +31,7 @@ def cadastro(request):
 
 
 def logout(request):
-    return redirect(request, 'index.html')
+    return redirect(request, '/index/')
 
 
 def login(request):
@@ -57,23 +57,38 @@ def home(request):
 
 def produto(request):
     if request.method == "GET":
+        produto_id = request.GET.get('id')
+        if produto_id:
+            produto = Produtos.objects.get(id=produto_id)
+            if produto.user == request.user:
+                return render(request, 'produto.html', {'produto': produto})
         return render(request, 'produto.html')
     else:
         nome = request.POST.get('nome')
         tipo = request.POST.get('tipo')
         quantidade = request.POST.get('quantidade')
         data_validade = request.POST.get('data_validade')
-        foto = request.FILES.get('foto')
+        foto = request.FILES.get('file')
+        produto_id = request.POST.get('produto-id')
         user = request.user
+        if produto_id:
+            produto = Produtos.objects.get(id=produto_id)
+            if user == produto.user:
+                produto.nome = nome
+                produto.tipo = tipo
+                produto.quantidade = quantidade
+                produto.data_validade = data_validade
+                if foto:
+                    produto.foto = foto
+                produto.save()
 
-        produto = Produtos.objects.filter(nome=nome, user=user, data_validade=data_validade).first()
-
-        if produto:
-            return HttpResponse('Já existe um produto com esse nome')
-
-        produto = Produtos.objects.create(nome=nome, tipo=tipo, quantidade=quantidade,
-                                          data_validade=data_validade, foto=foto, user=user)
-        produto.save()
+        else:
+            produto = Produtos.objects.filter(nome=nome, user=user, data_validade=data_validade).first()
+            if produto:
+                return HttpResponse('Já existe um produto com esse nome')
+            produto = Produtos.objects.create(nome=nome, tipo=tipo, quantidade=quantidade,
+                                              data_validade=data_validade, foto=foto, user=user)
+            produto.save()
 
         return render(request, 'produto.html')
 
@@ -82,6 +97,19 @@ def produto(request):
 def listar_produtos(request):
     produto = Produtos.objects.filter(user=request.user, active=True)
     return render(request, 'lista.html', {'produto': produto})
+
+
+@login_required(login_url='login/')
+def produto_detalhe(request, id):
+    produto = Produtos.objects.get(active=True, id=id)
+    return render(request, 'dados_produto.html', {'produto': produto})
+
+
+@login_required(login_url='login/')
+def excluir_produto(request, id):
+    produto = Produtos.objects.get(id=id)
+    produto.delete()
+    return redirect('/home/')
 
 
 def index(request):

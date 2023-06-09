@@ -12,12 +12,12 @@ class CadastroLoginTestCase(TestCase):
         self.assertTemplateUsed(response, 'cadastro.html')
 
     def test_cadastro_post_request(self):
-        response = self.client.post('/cadastro/', {'nome': 'hello', 'email': 'hello@example.com', 'senha': 'hellopassword'})
+        response = self.client.post('/cadastro/', {'nome': 'elizaa', 'email': 'elizaaugusta71@gmail.com', 'senha': '96536479'})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Usuário cadastrado com sucesso')
 
     def test_cadastro_post_request_existing_user(self):
-        response = self.client.post('/cadastro/', {'nome': 'hello', 'email': 'hello@example.com', 'senha': 'hellopassword'})
+        response = self.client.post('/cadastro/', {'nome': 'elizaa', 'email': 'elizaaugusta71@gmail.com', 'senha': '96536479'})
         self.assertEqual(response.status_code, 400)
         self.assertContains(response, 'Já existe um usuário com esse nome')
 
@@ -27,12 +27,12 @@ class CadastroLoginTestCase(TestCase):
         self.assertTemplateUsed(response, 'login.html')
 
     def test_login_post_request(self):
-        response = self.client.post('/login/', {'nome': 'hello', 'senha': 'hellopassword'})
+        response = self.client.post('/login/', {'nome': 'elizaa', 'senha': '96536479'})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Autenticado')
 
     def test_login_post_request_invalid_credentials(self):
-        response = self.client.post('/login/', {'nome': 'testuser', 'senha': 'invalidpassword'})
+        response = self.client.post('/login/', {'nome': 'elizaa', 'senha': '96536479'})
         self.assertEqual(response.status_code, 400)
         self.assertContains(response, 'Email ou senha inválidos')
 
@@ -40,7 +40,7 @@ class CadastroLoginTestCase(TestCase):
 class ProdutoTestCase(TestCase):
     def setUp(self):
         self.client = Client()
-        self.user = User.objects.create_user(username='testuser', password='testpassword')
+        self.user = User.objects.create_user(username='elizaa', password='96536479')
         self.produto_data = {
             'nome': 'Produto Teste',
             'tipo': 'Tipo Teste',
@@ -64,3 +64,38 @@ class ProdutoTestCase(TestCase):
         self.assertEqual(produto.quantidade, 10)
         self.assertEqual(str(produto.data_validade), '2023-06-01')
         self.assertIsNone(produto.foto)
+
+class ProdutoDetalheTest(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create_user(username='elizaa', password='96536479')
+        self.produto = Produtos.objects.create(active=True, id=1)
+
+    def test_produto_detalhe_login_required(self):
+        response = self.client.get(reverse('produto_detalhe', args=[self.produto.id]))
+        self.assertEqual(response.status_code, 302)  
+
+    def test_produto_detalhe_authenticated_user(self):
+        self.client.login(username='elizaaa', password='96536479')
+        response = self.client.get(reverse('produto_detalhe', args=[self.produto.id]))
+        self.assertEqual(response.status_code, 200)  
+        self.assertTemplateUsed(response, 'dados_produto.html')  
+        self.assertEqual(response.context['produto'], self.produto)  
+
+class ExcluirProdutoTest(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create_user(username='elizaa', password='96536479')
+        self.produto = Produtos.objects.create(id=1)
+
+    def test_excluir_produto_login_required(self):
+        response = self.client.get(reverse('excluir_produto', args=[self.produto.id]))
+        self.assertEqual(response.status_code, 302)  
+
+    def test_excluir_produto_authenticated_user(self):
+        self.client.login(username='elizaa', password='96536479')
+        response = self.client.get(reverse('excluir_produto', args=[self.produto.id]))
+        self.assertEqual(response.status_code, 302)  
+        self.assertEqual(response.url, '/home/')  
+        self.assertFalse(Produtos.objects.filter(id=self.produto.id).exists())  
+
