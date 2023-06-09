@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dados produto</title>
+    <style>
+        body{
+            front-family: Arial, helvetica, sans-serif;
+            background-image: deepskyblue;
+        }
+        .back{
+            background-color: #caf4ff;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 80px;
+            border-radius: 35px;
+            color: #000000;
+        }
+        .altera {
+          background-color: #008CBA;
+          border: none;
+          color: white;
+          padding: 15px 32px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+        }
+        .exlui {
+          background-color: #f44336;
+          border: none;
+          color: white;
+          padding: 15px 32px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+        }
+    </style>
+
+</head>
+<body>
+    <h1>Detalhes do produto</h1>
+    <div >
+        <div class="row">
+            <div class="col-sm-4">
+                <div style="border-color: blue; border-style: solid; width: 356px height: 300px ">
+                    <img src="{{produto.foto.url}}" width="350" height="263" style="margin-top: 16px">
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <p><b>Nome: </b>{{produto.nome}}</p>
+            <p><b>Categoria: </b>{{produto.tipo}}</p>
+            <p><b>Data de Validade: </b>{{produto.data_validade}}</p>
+            <p><b>Quantidade: </b>{{produto.quantidade}}</p>
+            <a href="/produto/?id={{ produto.id }}">
+                <button type="button" class="altera">Alterar</button>
+            </a>
+            <a href="../excluir/{{produto.id}}/">
+            <button type="button" class="exlui">Excluir</button>
+            </a>
+
+
+
+
+
+        </div>
+
+    </div>
+
+
+</body>
+</html>
