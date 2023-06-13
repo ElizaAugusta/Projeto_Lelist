@@ -90,7 +90,7 @@
         </ul>
     </div>
     <div class="meio">
-        <h1>Cadastro de Produtos</h1>
+        <h1>Produto</h1>
         <form action="{% url 'produto' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
             <input type="number" class="form-control" name="produto-id" value="{{produto.id}}" hidden>
             <br>
@@ -111,6 +111,9 @@
              <br>
              <br>
              {% if produto %}
+                <a href="/media/{{produto.foto}}" target="_blank"> Foto atual</a>
+                <br>
+                <br>
                 <input type="submit" class="add" value="Alterar">
              {% else %}
                 <input type="submit" class="add" value="Adicionar">
