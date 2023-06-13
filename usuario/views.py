@@ -30,8 +30,11 @@ def cadastro(request):
         return HttpResponse('Usuário cadastrado com sucesso')
 
 
+
+@login_required(login_url='../login/')
 def logout(request):
-    return redirect(request, '/index/')
+    return redirect(request, '/')
+
 
 
 def login(request):
@@ -51,10 +54,14 @@ def login(request):
     return redirect('login')
 
 
+
+@login_required(login_url='../login/')
 def home(request):
     return render(request, 'home.html')
 
 
+
+@login_required(login_url='../login/')
 def produto(request):
     if request.method == "GET":
         produto_id = request.GET.get('id')
@@ -93,19 +100,26 @@ def produto(request):
         return render(request, 'produto.html')
 
 
+
 @login_required(login_url='login/')
+def duvidas(request):
+    return render(request, 'duvida.html')
+
+
+
+@login_required(login_url='../login/')
 def listar_produtos(request):
     produto = Produtos.objects.filter(user=request.user, active=True)
     return render(request, 'lista.html', {'produto': produto})
 
 
-@login_required(login_url='login/')
+@login_required(login_url='../login/')
 def produto_detalhe(request, id):
     produto = Produtos.objects.get(active=True, id=id)
     return render(request, 'dados_produto.html', {'produto': produto})
 
 
-@login_required(login_url='login/')
+@login_required(login_url='../login/')
 def excluir_produto(request, id):
     produto = Produtos.objects.get(id=id)
     produto.delete()

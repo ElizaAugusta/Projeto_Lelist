@@ -4,22 +4,39 @@
     <meta charset="UTF-8">
     <title>Dados produto</title>
     <style>
-        body{
+        body {
             font-family: Arial, helvetica, sans-serif;
-            background-color: #caf4ff;
-        }
-        .back{
-            background-color: #caf4ff;
+            background-color:#caf4ff;
+            margin: 0% 30%;
+            padding: 35px;
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 80px;
-            border-radius: 35px;
-            color: #000000;
+        }
+
+        .back{
+
+            width: 160px;
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 50px;
+            color: #6BDCFF;
         }
         .altera {
-          background-color: #3dc49b;
+          background-color: #00BFFF;
+          border: none;
+          color: white;
+          padding: 15px 32px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+
+        }
+        .altera:hover{
+            background-color: #2F4F4F;
+        }
+        .exclui {
+          background-color: #00008B;
           border: none;
           color: white;
           padding: 15px 32px;
@@ -28,31 +45,59 @@
           display: inline-block;
           font-size: 16px;
         }
-        .exlui {
-          background-color: #B9B9B9;
-          border: none;
-          color: white;
-          padding: 15px 32px;
-          text-align: center;
-          text-decoration: none;
-          display: inline-block;
-          font-size: 16px;
+        .exclui:hover{
+            background-color: #00FFFF;
         }
+        #menu {
+               background-color: #059FEC;
+               position: fixed;
+               top: 0;
+               left: 0;
+               width: 100%;
+           }
+
+           #menu ul {
+               list-style-type: none;
+               margin: 0;
+               padding: 0;
+               overflow: hidden;
+               display: flex;
+               justify-content: left;
+           }
+
+           #menu li {
+               position: relative;
+               width: 30%;
+           }
+
+           #menu li a {
+               display: block;
+               color: black;
+               font-style: normal;
+               font-size: 16px;
+               text-align: center;
+               text-decoration: none;
+               padding: 16px;
+               border: 1px solid black;
+           }
     </style>
 
 </head>
 <body>
+    <div id="menu">
+           <ul>
+               <li>
+                    <a href="{% url 'lista'%}">Voltar</a>
+                </li>
+           </ul>
+       </div>
     <h1>Detalhes do produto</h1>
     <div >
-        <div class="row">
-            <div class="col-sm-4">
-                <div style="border-color: blue; border-style: solid; width: 356px height: 300px ">
-                    <img src="{{produto.foto.url}}" width="350" height="263" style="margin-top: 16px">
-                </div>
-
-            </div>
+        <div style="border-color: blue; border-style: solid; ">
+            <img src="{{produto.foto.url}}" width="350px;" height="350px;" style="margin-top: 10px;">
         </div>
-        <div class="col-sm-8">
+
+        <div>
             <p><b>Nome: </b>{{produto.nome}}</p>
             <p><b>Categoria: </b>{{produto.tipo}}</p>
             <p><b>Data de Validade: </b>{{produto.data_validade}}</p>
@@ -61,7 +106,7 @@
                 <button type="button" class="altera">Alterar</button>
             </a>
             <a href="../excluir/{{produto.id}}/">
-            <button type="button" class="exlui">Excluir</button>
+                <button type="button" class="exclui">Excluir</button>
             </a>
 
 
