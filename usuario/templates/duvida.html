@@ -1,12 +1,16 @@
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
-       <style>
+    <meta charset="UTF-8">
+    <title>Duvida</title>
+     <style>
            body {
                font-family: Arial, helvetica, sans-serif;
                background-color:#caf4ff;
-               margin: 0;
-               padding: 0;
+               margin: 16px;
+               padding: 33px;
            }
-           
+
            #menu {
                background-color: #059FEC;
                position: fixed;
@@ -14,21 +18,21 @@
                left: 0;
                width: 100%;
            }
-           
+
            #menu ul {
                list-style-type: none;
                margin: 0;
                padding: 0;
                overflow: hidden;
                display: flex;
-               justify-content: space-around;
+               justify-content: left;
            }
-           
+
            #menu li {
                position: relative;
-               width: 100%;
+               width: 30%;
            }
-           
+
            #menu li a {
                display: block;
                color: black;
@@ -39,15 +43,8 @@
                padding: 16px;
                border: 1px solid black;
            }
-   
-           .logo {
-               color: #6BDCFF;
-           }
-           
+
            #menu li a:hover {
-               background-color: white;
-           }
-            #menu li a:hover {
                background-color: white;
            }
 
@@ -68,46 +65,30 @@
                 margin-top: 20px;
                 width: 100%;
                 height: 100%;
-
-
            }
-           .container{
-                text-decoration:none;
-                display: block;
-                position: center;
-                font-family: arial;
-                font-style: normal;
-                color: #0000000;
-                font-weight: 500;
-                font-size: 23px;
-                margin-left:80px;
+           .titulo{
+               color: black;
+               font-style: title;
+               font-size: 32px;
+               text-align: center;
+               text-decoration: none;
+               padding: 16px;
+               border: 1px solid black;
            }
        </style>
 </head>
-   <body>
-       <div id="menu">
+<body>
+    <div id="menu">
            <ul>
-               <li id="logo">
-                   <a>L</a>
-               </li>
                <li>
                    <a href="{% url 'home'%}">Home</a>
                </li>
+
            </ul>
        </div>
        <div>
-           <h2 class="titulo"> Lista de Produtos</h2>
+           <h2 class="titulo"> Como Utilizar o site</h2>
        </div>
-       <div class="gallery-container">
-            {% for p in produto %}
-                <div class="col-sm-4">
-                    <a class="gallery-items" href="../detalhes/{{p.id}}">
-                        <img src="{{p.foto.url}}">
-                        <div class="container">
-                            <p> {{p.nome}}</p>
-                        </div>
-                    </a>
-                </div>
-            {% endfor %}
-       </div>
-   </body>
+
+</body>
+</html>

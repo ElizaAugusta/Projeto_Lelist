@@ -81,31 +81,16 @@
 <body>
     <div id="menu">
         <ul>
-            <li id="logo">
-                <a>L</a>
-            </li>
             <li>
                 <a href="{% url 'home'%}">LELIST</a>
             </li>
             <li>
-                <a href="{% url 'produto'%}">Produtos</a>
-            </li>
-            <li>
                 <a href="{% url 'lista'%}">Consulta</a>
-            </li>
-            <li>
-                <a>Dúvida</a>
-            </li>
-            <li>
-                <a>Usuário</a>
-            </li>
-            <li>
-                <a href="/logout/">Sair</a>
             </li>
         </ul>
     </div>
     <div class="meio">
-        <h1>Cadastro de Produtos</h1>
+        <h1>Produto</h1>
         <form action="{% url 'produto' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
             <input type="number" class="form-control" name="produto-id" value="{{produto.id}}" hidden>
             <br>
@@ -126,6 +111,9 @@
              <br>
              <br>
              {% if produto %}
+                <a href="/media/{{produto.foto}}" target="_blank"> Foto atual</a>
+                <br>
+                <br>
                 <input type="submit" class="add" value="Alterar">
              {% else %}
                 <input type="submit" class="add" value="Adicionar">
