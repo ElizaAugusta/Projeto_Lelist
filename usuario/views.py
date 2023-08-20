@@ -102,7 +102,7 @@ def produto(request):
 
 
 @login_required(login_url='login/')
-def duvidas(request):
+def duvida(request):
     return render(request, 'duvida.html')
 
 
